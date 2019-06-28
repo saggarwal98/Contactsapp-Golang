@@ -11,11 +11,83 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="registerform.js"></script>
+    <script>
+        window.onload=function(){
+                let userEmail=document.getElementById('userEmail');
+                let userPassword=document.getElementById('userPassword')
+                let submitbtn=document.getElementById('submitbtn')
+                // let datetime=document.getElementById('datetime')
+                let checktc=document.getElementById("checktc")
+                let f1=document.getElementById("f1")
+                let l1=document.getElementById("l1")
+                let showpass=document.getElementById('showpass')
+                // datetime.append(new Date())
+                // var regularExpression = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+                var regularExpression = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9].{8,16}$/);
+                function saveToStorage(){
+                    localStorage.setItem("f1",JSON.stringify(f1.value));
+                    localStorage.setItem("l1",JSON.stringify(l1.value));
+                    localStorage.setItem("userEmail",JSON.stringify(userEmail.value));
+                    localStorage.setItem("userPassword",JSON.stringify(userPassword.value));
+                }
+                function clearStorage(){
+                    localStorage.clear();
+                }
+                function fillFromStorage(){
+                    if(!(JSON.parse(localStorage.getItem("f1"))=="")){
+                        f1.value=JSON.parse(localStorage.getItem("f1"));
+                    }
+                    if(!(JSON.parse(localStorage.getItem("l1"))=="")){
+                        l1.value=JSON.parse(localStorage.getItem("l1"));
+                    }
+                    if(!(JSON.parse(localStorage.getItem("userEmail"))=="")){
+                        userEmail.value=JSON.parse(localStorage.getItem("userEmail"));
+                    }
+                    if(!(JSON.parse(localStorage.getItem("userPassword"))=="")){
+                        userPassword.value=JSON.parse(localStorage.getItem("userPassword"));
+                    }
+                }
+                fillFromStorage();
+                showpass.onclick=function(){
+                    if(userPassword.type === "password"){
+                        userPassword.type = "text";
+                    }
+                    else{
+                        userPassword.type="password";
+                    }
+                }
+                document.getElementById("checkbtn").onclick=function(){
+                    saveToStorage();
+                    if(userEmail.value === ""){
+                        window.alert("Please enter email")
+                    }
+                    else if((!userEmail.value.includes('@')) || (userEmail.value.split('@')[1] === "") || (userEmail.value.split('@')[1].split('.')[1] === "")){
+                        window.alert("Please enter correct email")
+                    }
+                    else if(userPassword.value === ""){
+                        window.alert("Please enter password")
+                    }
+                    else if((userPassword.value.length<8)||(userPassword.value.length>16)){
+                        window.alert("Please enter password between 8 to 16 characters")
+                    }
+                    else if(!regularExpression.test(userPassword.value)) {
+                        window.alert("password should contain atleast one number, one special character, one small alphabet and one capital alphabet");
+                        return false;
+                    }
+                    else if(checktc.checked == false){
+                        window.alert("Please agree to Terms and Conditions")
+                    }
+                    else{
+                        clearStorage();
+                        window.alert("Thank you for registering");
+                    }
+                }
+        }
+    </script>
 </head>
 <body>
     <div class="container-fluid text-nowrap">
-        <form>
+        <form action="/addusertodb" method="POST">
             <div class="form-group">
                 <label for="exampleInputName1" class="bold1">Enter Name</label>
                 <div class="row">
@@ -39,9 +111,10 @@
                 <input type="checkbox" id="checktc">
                 <label class="form-check-label" for="exampleCheck1">I agree to terms and conditions</label>
             </div>
-            <button id="checkbtn" class="btn bold1">Check Details</button>
-            <button class="btn btn-primary bold1" id="submitbtn" formaction="/addusertodb" method="POST">Submit</button>
+            <button class="btn btn-primary bold1" id="submitbtn">Submit</button>
         </form>
+        <br>
+        <button id="checkbtn">Check details for errors</button>
     </div>
 </body>
 </html>
