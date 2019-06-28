@@ -106,7 +106,7 @@ func indexhandler(w http.ResponseWriter,r *http.Request){
 	if exist==true{
 		http.Redirect(w,r,"/feed",301)
 	}else{
-		content, err := ioutil.ReadFile("simpleloginapp/src/html/login.html")
+		content, err := ioutil.ReadFile("./src/html/login.html")
 		if err != nil {
 			log.Println(err)
 		}
@@ -127,7 +127,7 @@ func loginhandler(w http.ResponseWriter,r *http.Request){
 	
 	//if user doesn't exist
 	if str=="register"{
-		content, err := ioutil.ReadFile("simpleloginapp/src/html/register.html")
+		content, err := ioutil.ReadFile("/src/html/register.html")
 		if err != nil {
 			log.Println(err)
 		}
@@ -150,7 +150,7 @@ func loginhandler(w http.ResponseWriter,r *http.Request){
 func feedhandler(w http.ResponseWriter,r *http.Request){
 	exist:=checkcookie(r)
 	if exist==true{
-		content, err := ioutil.ReadFile("simpleloginapp/src/html/feed.html")
+		content, err := ioutil.ReadFile("./src/html/feed.html")
 		if err != nil {
 			log.Println(err)
 		}
@@ -163,7 +163,7 @@ func feedhandler(w http.ResponseWriter,r *http.Request){
 //logouthandler will clear cookies and redirect to "/"
 func logouthandler(w http.ResponseWriter,r *http.Request){
 	clearcookie(w)
-	content,err:=ioutil.ReadFile("simpleloginapp/src/html/logout.html")
+	content,err:=ioutil.ReadFile("./src/html/logout.html")
 	if err!=nil{
 		log.Println(err)
 	}else{
@@ -173,7 +173,7 @@ func logouthandler(w http.ResponseWriter,r *http.Request){
 
 //registerhandler will be used to register new users
 func registerhandler(w http.ResponseWriter,r *http.Request){
-	content,err:=ioutil.ReadFile("simpleloginapp/src/html/register.html")
+	content,err:=ioutil.ReadFile("./src/html/register.html")
 	if err!=nil{
 		log.Println(err)
 	}
