@@ -204,7 +204,7 @@ func addusertodb(w http.ResponseWriter,r*http.Request){
 
 //checkuser function checks for user credentials in database
 func checkuser(email,password string) string {
-	var db, err= sql.Open("mysql", "saggarwal98:shubham@tcp(0.0.0.0:3306)/simplelogin")
+	var db, err= sql.Open("mysql", "saggarwal98:shubham@tcp(simplelogindatabase:3306)/simplelogin")
 	defer db.Close()
 	if err!=nil{
 		return "Could not connect to database"
@@ -230,7 +230,7 @@ func checkuser(email,password string) string {
 
 //func adduser will add user to db
 func adduser(firstname,lastname,email,password string)bool{
-	var db, err= sql.Open("mysql", "saggarwal98:shubham@tcp(0.0.0.0:3306)/simplelogin")
+	var db, err= sql.Open("mysql", "saggarwal98:shubham@tcp(simplelogindatabase:3306)/simplelogin")
 	defer db.Close()
 	_,err=db.Query("INSERT INTO Users(FIRSTNAME,LASTNAME,EMAIL,PASSWORD) VALUES('"+firstname+"','"+lastname+"','"+email+"','"+password+"')")
 	if err!=nil{
