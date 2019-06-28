@@ -1,0 +1,7 @@
+FROM mysql:latest
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=simplelogin
+ENV MYSQL_USER=saggarwal98
+ENV MYSQL_PASSWORD=shubham
+COPY ./src/test.sql /docker-entrypoint-initdb.d/test.sql
+EXPOSE 3306

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="registerform.js"></script>
+</head>
+<body>
+    <div class="container-fluid text-nowrap">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputName1" class="bold1">Enter Name</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="First name" name="f1" id="f1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Last name" name="l1" id="l1">
+                    </div>
+                    </div>
+                    <label for="exampleFormControlSelect1" class="bold1">Enter Email</label>
+                    <input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="Enter email">
+                    <label for="userPassword" class="bold1 a2">Password</label>
+                    <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="Enter password">
+                    <div class="form-group form-check">
+                    <input type="checkbox" id="showpass">
+                    <label class="form-check-label" for="exampleCheck1"><u>Show Password</u></label>
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" id="checktc">
+                <label class="form-check-label" for="exampleCheck1">I agree to terms and conditions</label>
+            </div>
+            <button id="checkbtn" class="btn bold1">Check Details</button>
+            <button class="btn btn-primary bold1" id="submitbtn" formaction="/addusertodb" method="POST">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
