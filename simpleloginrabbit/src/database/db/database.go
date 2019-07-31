@@ -18,7 +18,7 @@ func Adduser(query string)bool{
 	// conn.SetCollation("utf8_general_ci")
 	// conn.MakeDBI()
 	// db, err := conn.OpenConn()
-	db,err:=sql.Open("mysql","saggarwal98:shubham@tcp(localhost:3306)/simplelogin")
+	db,err:=sql.Open("mysql","saggarwal98:shubham@tcp(mysql:3306)/simplelogin")
 	defer db.Close()
 	if err!=nil{
 		log.Println("Could not connect to database")
