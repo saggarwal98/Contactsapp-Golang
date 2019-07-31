@@ -29,10 +29,10 @@ func TestAddUser(t *testing.T){
 	if status == false {
 		t.Error("Received error when updating contact")
 	}
-	// status = Adduser("delete from Contacts where NOT email='shubhamaggarwalmvn@gmail.com'")
-	// if status == false{
-	// 	t.Errorf("Received error when deleting contact")
-	// }
+	status = Adduser("delete from Contacts where NOT email='shubhamaggarwalmvn@gmail.com'")
+	if status == false{
+		t.Errorf("Received error when deleting contact")
+	}
 }
 
 
