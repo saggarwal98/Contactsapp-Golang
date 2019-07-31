@@ -1,0 +1,14 @@
+FROM golang:latest
+WORKDIR $GOPATH
+# FROM rabbitmq:latest
+
+# ADD . /go/src/dockerpkg/db
+COPY . .
+RUN go get "github.com/go-sql-driver/mysql"
+RUN go get "github.com/streadway/amqp"
+RUN go get "github.com/imSQL/proxysql"
+RUN go build database/db
+RUN go build consumer
+RUN go install consumer
+EXPOSE 2000
+CMD ["consumer"]

@@ -5,8 +5,11 @@ COPY . .
 RUN go get "github.com/go-sql-driver/mysql"
 RUN go get "github.com/gorilla/mux"
 RUN go get "github.com/gorilla/securecookie"
-RUN go build dockerpkg/db
-RUN go build dockerpkg/ck
+RUN go get "github.com/streadway/amqp"
+RUN go get "github.com/imSQL/proxysql"
+RUN go build dockerpkg/database/db
+# RUN go build dockerpkg/ck
+RUN go build dockerpkg/rabbit
 RUN go build simpleloginapp
 RUN go install simpleloginapp
 EXPOSE 3000

@@ -1,2 +1,2 @@
-simpleloginapp contains the Go app for login with mysql database
-simplelogindatabase comtains the database for use in deployment purposes
+simpleloginapp contains the Contacts app manager
+simpleloginrabbit contains the rabbitmq consumer

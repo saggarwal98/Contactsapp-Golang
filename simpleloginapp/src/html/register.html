@@ -53,8 +53,8 @@
                         window.alert("Please agree to Terms and Conditions")
                     }
                     else{
-                        clearStorage();
-                        window.alert("Thank you for registering");
+                        document.getElementById("submitbtn").disabled=false
+                        window.alert("Now you can submit your details");
                     }
                 }
         }
@@ -86,7 +86,7 @@
                 <input type="checkbox" id="checktc">
                 <label class="form-check-label" for="exampleCheck1">I agree to terms and conditions</label>
             </div>
-            <button class="btn btn-primary bold1" id="submitbtn">Submit</button>
+            <button class="btn btn-primary bold1" id="submitbtn" disabled>Submit</button>
         </form>
         <br>
         <button id="checkbtn">Check details for errors</button>
