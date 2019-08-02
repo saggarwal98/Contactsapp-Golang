@@ -160,20 +160,23 @@ func GetContactForEdit(id,email string)(string,string,string,string,string){
 		log.Println("Could not connect to database")
 	}
 	results,err:=db.Query("SELECT ID,Name,Phone_number_1,Phone_number_2,Address FROM Contacts WHERE ID="+ id +" AND Email='"+ email+"'")
+	// log.Println(results.Next())
 	if err!=nil{
+		// log.Println("error executing query")
 		log.Println(err)
-		log.Println("abc4")
+		// log.Println("abc4")
 	}
 	if results.Next() == true {
 		var a Contact
 		err = results.Scan(&a.ID,&a.Name,&a.Phone_number_1,&a.Phone_number_2,&a.Address)
 		if err != nil {
+			// log.Println("abc5")
 			log.Println(err)
-			log.Println("abc5")
 		}
 	return a.ID,a.Name,strconv.Itoa(a.Phone_number_1),strconv.Itoa(a.Phone_number_2),a.Address
+	}else{
+		return "0","err.Error()","","",""
 	}
-	return "0",err.Error(),"","",""
 }
 
 

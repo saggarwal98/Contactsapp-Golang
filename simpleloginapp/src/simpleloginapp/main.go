@@ -126,13 +126,16 @@ func loginhandler(w http.ResponseWriter,r *http.Request){
 	
 	//if user doesn't exist
 	if str=="register"{
-		http.Redirect(w,r,"/register",301)
+		fmt.Fprintln(w,feed1)
+		fmt.Fprintln(w,`<script>window.onload=function(){window.alert("You do not have a account.\nPlease create a new one.");setTimeout(function(){window.location.href="/register"},200)}</script></head></html>`)
+		// http.Redirect(w,r,"/register",301)
 	}else if str=="proceed"{
 		//if user exits, save cookie and redirect to feed
 		Createcookie(w,email)
 		http.Redirect(w,r,"/feed",301)
 	}else if str=="wrong credentials"{
-		http.Redirect(w,r,"/",301)
+		fmt.Fprintln(w,feed1)
+		fmt.Fprintln(w,`<script>window.onload=function(){window.alert("Please check your login credentials");setTimeout(function(){window.location.href="/"},200)}</script></head></html>`)
 	}else{
 		//some error has been countered
 		//log.Println(str)
@@ -209,11 +212,19 @@ func addusertodb(w http.ResponseWriter,r*http.Request){
 	if exist==true{
 		http.Redirect(w,r,"/feed",301)
 	}else{
-		query:="INSERT INTO Users(FIRSTNAME,LASTNAME,EMAIL,PASSWORD) VALUES('"+r.FormValue("f1")+"','"+r.FormValue("l1")+"','"+r.FormValue("userEmail")+"','"+r.FormValue("userPassword")+"')"
-		rabbit.AddToQueue(query)
-		fmt.Fprintln(w,`<script>window.onload=function(){setTimeout(()=>{window.location.href="/"},3000)}</script>`)
-		fmt.Fprintf(w,"Your account creation is under process.")
-		fmt.Fprintf(w,`You are being redirected to login page. Click here if not redirected <a href="/">Login Page</a>`)
+		out:=db.Checkuser(r.FormValue("userEmail"),r.FormValue("userPassword"))
+		if out == "error running query"{fmt.Fprintln(w,"Server Down")}
+		if out == "proceed" || out == "wrong credentials"{
+			fmt.Fprintln(w,feed1)
+			fmt.Fprintln(w,`<script>window.onload=function(){window.alert("You are already registered.\nPlease login to continue");setTimeout(function(){window.location.href="/"},100)}</script></head></html>`)
+		}
+		if out =="register"{
+			query:="INSERT INTO Users(FIRSTNAME,LASTNAME,EMAIL,PASSWORD) VALUES('"+r.FormValue("f1")+"','"+r.FormValue("l1")+"','"+r.FormValue("userEmail")+"','"+r.FormValue("userPassword")+"')"
+			rabbit.AddToQueue(query)
+			fmt.Fprintln(w,`<script>window.onload=function(){setTimeout(()=>{window.location.href="/"},3000)}</script>`)
+			fmt.Fprintf(w,"Your account creation is under process.")
+			fmt.Fprintf(w,`You are being redirected to login page. Click here if not redirected <a href="/">Login Page</a>`)
+		}
 	}
 }
 
@@ -282,8 +293,10 @@ func idedithandler(w http.ResponseWriter,r *http.Request){
 			fmt.Fprintln(w,"Server error")
 		}else{
 			enteredid:=r.FormValue("getidfield")
+			// log.Println("Before db function")
 			id,n1,p1,p2,a1:=db.GetContactForEdit(enteredid,email)
-			if id!=enteredid{
+			// log.Println("After db function")
+			if id == "0"{
 				fmt.Fprintln(w,`<html><head><script>window.onload=()=>{setTimeout(()=>{window.location.href="/feed"},3000)}</script></head><body>No Contact found with that id.<br>Redirecting you to Contacts page.<a href="/feed">Click here</a> if not redirected</body></html>`)
 			}else{
 				fmt.Fprintf(w,feed1)
